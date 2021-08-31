@@ -443,10 +443,13 @@ def nargminmax(values, method: str, axis: int = 0):
 
     if values.ndim > 1:
         if mask.any():
-            if axis == 1:
-                zipped = zip(values, mask)
-            else:
-                zipped = zip(values.T, mask.T)
+            # if axis == 1:
+            #     zipped = zip(values, mask)
+            # else:
+            #     zipped = zip(values.T, mask.T)
+            value = zip(values, mask)
+            other_value = zip(values.T, mask.T)
+            zipped = value if axis == 1 else other_value
             return np.array([_nanargminmax(v, m, func) for v, m in zipped])
         return func(values, axis=axis)
 
